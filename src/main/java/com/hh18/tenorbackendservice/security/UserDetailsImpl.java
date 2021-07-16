@@ -1,5 +1,6 @@
 package com.hh18.tenorbackendservice.security;
 
+import com.hh18.tenorbackendservice.models.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserDetailsImpl implements UserDetails {

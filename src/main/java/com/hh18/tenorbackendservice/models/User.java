@@ -11,22 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class User extends TimeStamped {
-    public User(String username, String password, String email, UserRole role) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
         this.kakaoId = null;
     }
 
-    public User(String username, String password, String email, UserRole role, Long kakaoId) {
+    
+    public User(String username, String password, String email, Long kakaoId) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
         this.kakaoId = kakaoId;
     }
-
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -41,12 +39,7 @@ public class User extends TimeStamped {
 
 
     @Column(nullable = false)
-    @Email
     private String email;
-
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private UserRole role;
 
     @Column(nullable = true)
     private Long kakaoId;

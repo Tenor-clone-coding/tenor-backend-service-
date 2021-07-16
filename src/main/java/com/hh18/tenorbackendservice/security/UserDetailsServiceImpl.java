@@ -1,5 +1,7 @@
 package com.hh18.tenorbackendservice.security;
 
+import com.hh18.tenorbackendservice.models.User;
+import com.hh18.tenorbackendservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
