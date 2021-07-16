@@ -1,11 +1,6 @@
 package com.hh18.tenorbackendservice.security;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -47,18 +42,5 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    private static final String ROLE_PREFIX = "ROLE_";
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        UserRole userRole = user.getRole();
-
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(ROLE_PREFIX + userRole.toString());
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(authority);
-
-        return authorities;
     }
 }
