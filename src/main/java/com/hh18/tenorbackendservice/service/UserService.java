@@ -3,9 +3,7 @@ package com.hh18.tenorbackendservice.service;
 
 import com.hh18.tenorbackendservice.dto.SignupRequestDto;
 import com.hh18.tenorbackendservice.models.User;
-import com.hh18.tenorbackendservice.models.UserRole;
 import com.hh18.tenorbackendservice.repository.UserRepository;
-import com.hh18.tenorbackendservice.security.kakao.KakaoOAuth2;
 import com.hh18.tenorbackendservice.security.kakao.KakaoUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +45,9 @@ public class UserService {
         // 패스워드 인코딩
         String password = passwordEncoder.encode(requestDto.getPassword());
         String email = requestDto.getEmail();
-        // 사용자 ROLE 확인
-        UserRole role = UserRole.USER;
-        if (requestDto.isAdmin()) {
-            if (!requestDto.getAdminToken().equals(ADMIN_TOKEN)) {
-                throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
-            }
-            role = UserRole.ADMIN;
-        }
 
-        User user = new User(username, password, email, role);
+
+        User user = new User(username, password, email);
         userRepository.save(user);
     }
 
@@ -81,10 +72,8 @@ public class UserService {
         if (kakaoUser == null) {
             // 패스워드 인코딩
             String encodedPassword = passwordEncoder.encode(password);
-            // ROLE = 사용자
-            UserRole role = UserRole.USER;
 
-            kakaoUser = new User(nickname, encodedPassword, email, role, kakaoId);
+            kakaoUser = new User(nickname, encodedPassword, email, kakaoId);
             userRepository.save(kakaoUser);
         }
 
