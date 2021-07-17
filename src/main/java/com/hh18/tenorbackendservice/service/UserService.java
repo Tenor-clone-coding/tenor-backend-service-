@@ -7,6 +7,7 @@ import com.hh18.tenorbackendservice.models.UserRole;
 import com.hh18.tenorbackendservice.repository.UserRepository;
 import com.hh18.tenorbackendservice.security.kakao.KakaoOAuth2;
 import com.hh18.tenorbackendservice.security.kakao.KakaoUserInfo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserService {
     private final PasswordEncoder passwordEncoder;

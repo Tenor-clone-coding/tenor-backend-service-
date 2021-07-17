@@ -2,7 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>123123</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            <!--페이지가 로드됐을때 실행-->
+            $('.append-to-here').empty();
+            api();
+        })
+
+        function api(){
+            $.ajax({
+                type: 'GET',
+                url: '/user/info',
+                success: function (response) {
+                    console.log(response)
+                    }
+            });
+        }
+    </script>
 </head>
 <body>
 
