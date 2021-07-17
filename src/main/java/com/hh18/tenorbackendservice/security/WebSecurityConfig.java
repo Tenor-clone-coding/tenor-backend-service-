@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/").permitAll() // 유저정보 가져오기 테스트용
                 // 그 외 모든 요청은 인증과정 필요
                 .anyRequest().authenticated()
                 .and()
