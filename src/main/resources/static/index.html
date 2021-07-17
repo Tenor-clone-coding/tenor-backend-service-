@@ -7,7 +7,6 @@
     <script>
         $(document).ready(function () {
             <!--페이지가 로드됐을때 실행-->
-            $('.append-to-here').empty();
             userapi();
             photoapi();
         })
@@ -26,10 +25,23 @@
                 type: 'GET',
                 url: '/api/photos',
                 success: function (response) {
-                    console.log(response)
+                    let fid = response[1].fileId
+                    getphoto(fileId)
                 }
             });
         }
+
+        function getphoto(fileId){
+            $.ajax({
+                type: 'GET',
+                url: '/api/photos',
+                success: function (response) {
+                    let fid = response[1].fileId
+                    getphoto(fileId)
+                }
+            });
+        }
+
     </script>
 </head>
 <body>
