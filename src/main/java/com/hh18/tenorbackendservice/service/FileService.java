@@ -20,16 +20,4 @@ public class FileService {
         return fileRepository.save(fileDto.toEntity()).getId();
     }
 
-    @Transactional
-    public FileDto getFile(Long id){
-        File file = fileRepository.findById(id).get();
-
-        FileDto fileDto = FileDto.builder()
-                .id(id)
-                .originFname(file.getOriginFname())
-                .fname(file.getFname())
-                .fPath(file.getFPath())
-                .build();
-        return fileDto;
-    }
 }

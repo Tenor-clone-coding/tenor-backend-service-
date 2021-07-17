@@ -8,16 +8,26 @@
         $(document).ready(function () {
             <!--페이지가 로드됐을때 실행-->
             $('.append-to-here').empty();
-            api();
+            userapi();
+            photoapi();
         })
 
-        function api(){
+        function userapi(){
             $.ajax({
                 type: 'GET',
                 url: '/user/info',
                 success: function (response) {
                     console.log(response)
-                    }
+                }
+            });
+        }
+        function photoapi(){
+            $.ajax({
+                type: 'GET',
+                url: '/api/photos',
+                success: function (response) {
+                    console.log(response)
+                }
             });
         }
     </script>
