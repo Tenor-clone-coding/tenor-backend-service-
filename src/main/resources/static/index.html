@@ -51,13 +51,18 @@
         }
 
         function search(){
+            $('.body').empty();
             let words = $('#search-bar').val();
             $.ajax({
                 type: 'GET',
                 data: {"words":words},
                 url: '/api/search/',
                 success: function (response) {
-                    console.log(response)
+                    for (let i = 0; i < response.length; i++) {
+                        let fid = response[i].fileId
+                        let src = getphoto(fid)
+                        addHTML(src)
+                    }
                 }
             });
         }
@@ -65,8 +70,13 @@
     </script>
 </head>
 <body>
+<div>
 <input name="words" type="text" placeholder="검색어를 입력하세요" id="search-bar">
     <button onclick="search()">검색</button>
+</div>
+<div>
+    <button onclick="location.href='/write'">글쓰기</button>
+</div>
 <div class="body">
 
 </div>

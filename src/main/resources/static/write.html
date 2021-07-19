@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>게시판 - 글쓰기</title>
@@ -24,7 +24,7 @@
     </script>
 </head>
 <body>
-<header th:insert="common/header.html"></header>
+<header></header>
 <div class="container">
     <form action="/api/photos" method="post" enctype="multipart/form-data">
         <div class="form-group row">
@@ -64,5 +64,6 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
+<p>업로드가능한 최대용량은 30MB입니다.</p>
 </body>
 </html>
