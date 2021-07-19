@@ -50,9 +50,23 @@
             return fname;
         }
 
+        function search(){
+            let words = $('#search-bar').val();
+            $.ajax({
+                type: 'GET',
+                data: {"words":words},
+                url: '/api/search/',
+                success: function (response) {
+                    console.log(response)
+                }
+            });
+        }
+
     </script>
 </head>
 <body>
+<input name="words" type="text" placeholder="검색어를 입력하세요" id="search-bar">
+    <button onclick="search()">검색</button>
 <div class="body">
 
 </div>
