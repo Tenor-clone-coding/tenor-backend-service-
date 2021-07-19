@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -24,5 +26,29 @@ public class PhotoService {
                 () -> new IllegalArgumentException("존재하지않는사진입니다.")
         );
         photoRepository.delete(photo);
+    }
+
+    @Transactional
+    public List<PhotoDto> searchTitle(String words){
+        List<Photo> photos = photoRepository.findByTitleOrderByCreatedAtDesc(words);
+        List<PhotoDto> photoDtoList = new ArrayList<>();
+
+        if(photos.isEmpty()){
+            return photoDtoList;
+        }
+
+        for(Photo photo : photos){
+            photoDtoList.add(this.entityDto(photo));
+        }
+        return photoDtoList;
+    }
+
+    private PhotoDto entityDto(Photo photo){
+        return PhotoDto.builder()
+                .id(photo.getId())
+                .user_id(photo.getUser_id())
+                .fileId(photo.getFileId())
+                .title(photo.getTitle())
+                .build();
     }
 }

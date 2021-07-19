@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo,Long> {
     List<Photo> findAllByOrderByCreatedAtDesc();
+    List<Photo> findByTitleOrderByCreatedAtDesc(String words);
 }
