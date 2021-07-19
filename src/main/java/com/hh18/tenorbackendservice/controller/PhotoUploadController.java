@@ -28,7 +28,7 @@ public class PhotoUploadController {
             /* static/image에 저장됨 */
             String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image";
             /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
-            if (!new java.io.File(savePath).exists()) {
+            if (!new java.io.File(savePath).exists  ()) {
                 try{
                     new java.io.File(savePath).mkdir();
                 }

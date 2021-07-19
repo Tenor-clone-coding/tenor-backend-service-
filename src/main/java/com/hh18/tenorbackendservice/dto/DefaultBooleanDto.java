@@ -9,8 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DefaultResDto {
+public class DefaultBooleanDto {
     private boolean res;
-    private String msg;
-    private Object result;
 }

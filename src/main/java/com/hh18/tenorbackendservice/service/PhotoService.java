@@ -17,4 +17,12 @@ public class PhotoService {
     public Long save(PhotoDto photoDto){
         return photoRepository.save(photoDto.toEntity()).getId();
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Photo photo = photoRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지않는사진입니다.")
+        );
+        photoRepository.delete(photo);
+    }
 }
