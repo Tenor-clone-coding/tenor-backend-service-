@@ -30,7 +30,7 @@ public class PhotoService {
 
     @Transactional
     public List<PhotoDto> searchTitle(String words){
-        List<Photo> photos = photoRepository.findByTitleOrderByCreatedAtDesc(words);
+        List<Photo> photos = photoRepository.findByTitleContainingOrderByCreatedAtDesc(words);
         List<PhotoDto> photoDtoList = new ArrayList<>();
 
         if(photos.isEmpty()){

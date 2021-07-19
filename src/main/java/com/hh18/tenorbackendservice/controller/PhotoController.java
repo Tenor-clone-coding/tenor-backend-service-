@@ -48,7 +48,7 @@ public class PhotoController {
         return response;
     }
 
-    @GetMapping("api/search/{words}")
+    @GetMapping(value = "api/search")
     public List<PhotoDto> search(@RequestParam(value = "words") String words) {
         List<PhotoDto> photoDtoList = photoService.searchTitle(words);
         return photoDtoList;
