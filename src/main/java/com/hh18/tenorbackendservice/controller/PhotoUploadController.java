@@ -26,7 +26,8 @@ public class PhotoUploadController {
             String origFilename = files.getOriginalFilename();
             String filename = new MD5Generator(origFilename).toString();
             /* static/image에 저장됨 */
-            String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image";
+//            String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image"; //윈도우용
+            String savePath = System.getProperty("user.dir") + "/image"; //리눅스용
             /* 파일이 저장되는 폴더가 없으면 폴더를 생성합니다. */
             if (!new java.io.File(savePath).exists  ()) {
                 try{
@@ -36,7 +37,7 @@ public class PhotoUploadController {
                     e.getStackTrace();
                 }
             }
-            String filePath = savePath + "\\" + filename;
+            String filePath = savePath + "/" + filename;
             files.transferTo(new File(filePath));
 
             FileDto fileDto = new FileDto();

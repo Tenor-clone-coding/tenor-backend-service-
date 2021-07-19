@@ -49,7 +49,10 @@ public class PhotoController {
     }
 
     @GetMapping(value = "api/search")
-    public List<PhotoDto> search(@RequestParam(value = "words") String words) {
+    public List<? extends Object> search(@RequestParam(value = "words") String words) {
+        if (words.equals("all")){
+            return photoRepository.findAllByOrderByCreatedAtDesc();
+        }
         List<PhotoDto> photoDtoList = photoService.searchTitle(words);
         return photoDtoList;
     }
