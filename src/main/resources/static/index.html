@@ -25,26 +25,36 @@
                 type: 'GET',
                 url: '/api/photos',
                 success: function (response) {
-                    let fid = response[1].fileId
-                    getphoto(fileId)
+                    for (let i = 0; i < response.length; i++) {
+                        let fid = response[i].fileId
+                        let src = getphoto(fid)
+                        addHTML(src)
+                    }
                 }
             });
+        }
+        function addHTML(src){
+            let temp_tag = `<img src="/image/${src}">`
+            $('.body').append(temp_tag)
         }
 
         function getphoto(fileId){
             $.ajax({
                 type: 'GET',
-                url: '/api/photos',
+                url: '/api/photos/'+fileId,
+                async: false,
                 success: function (response) {
-                    let fid = response[1].fileId
-                    getphoto(fileId)
+                    fname = response
                 }
             });
+            return fname;
         }
 
     </script>
 </head>
 <body>
+<div class="body">
 
+</div>
 </body>
 </html>

@@ -3,21 +3,28 @@ package com.hh18.tenorbackendservice.service;
 import com.hh18.tenorbackendservice.dto.FileDto;
 import com.hh18.tenorbackendservice.models.File;
 import com.hh18.tenorbackendservice.repository.FileRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+@RequiredArgsConstructor
 @Service
 public class FileService {
-    private FileRepository fileRepository;
+    private final FileRepository fileRepository;
 
-    public FileService(FileRepository fileRepository){
-        this.fileRepository = fileRepository;
-    }
 
     @Transactional
     public Long saveFile(FileDto fileDto){
         return fileRepository.save(fileDto.toEntity()).getId();
+    }
+
+    @Transactional
+    public String searchById(Long id){
+        File file = fileRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지않는파일")
+        );
+        return file.getFname();
     }
 
 }
