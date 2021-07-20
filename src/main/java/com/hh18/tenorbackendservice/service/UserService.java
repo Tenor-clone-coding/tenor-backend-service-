@@ -33,6 +33,15 @@ public class UserService {
         this.authenticationManager = authenticationManager;
     }
 
+    public Boolean checkEmail(String userEmail){
+        Optional<User> user = userRepository.findByEmail(userEmail);
+        if(user.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     public void registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();

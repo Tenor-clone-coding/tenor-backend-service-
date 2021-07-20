@@ -1,22 +1,23 @@
 package com.hh18.tenorbackendservice.controller;
 
+import com.hh18.tenorbackendservice.dto.DefaultBooleanDto;
 import com.hh18.tenorbackendservice.dto.SignupRequestDto;
 import com.hh18.tenorbackendservice.dto.UserInfoDto;
+import com.hh18.tenorbackendservice.repository.UserRepository;
 import com.hh18.tenorbackendservice.security.UserDetailsImpl;
 import com.hh18.tenorbackendservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+
 
     @Autowired
     public UserController(UserService userService) {
@@ -26,6 +27,8 @@ public class UserController {
     // 회원 로그인 페이지
     @GetMapping("/user/login")
     public String login() {
+
+
         return "login";
     }
 
@@ -40,6 +43,17 @@ public class UserController {
     public String signup() {
         return "signup";
     }
+
+    // 회원 중복 확인
+    @GetMapping("/user/checkid/{id}")
+    @ResponseBody
+    public DefaultBooleanDto checkId(@PathVariable String userEmail) {
+        Boolean response = userService.checkEmail(userEmail);
+        DefaultBooleanDto responseDto = new DefaultBooleanDto();
+        responseDto.setRes(response);
+        return responseDto;
+    }
+
 
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
@@ -64,11 +78,11 @@ public class UserController {
 
     @GetMapping("user/info")
     @ResponseBody
-    public UserInfoDto getUserInfo(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        if (userDetails == null){
-            return new UserInfoDto(false,"로그인상태가 아닙니다.",null,null,null);
+    public UserInfoDto getUserInfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (userDetails == null) {
+            return new UserInfoDto(false, "로그인상태가 아닙니다.", null, null, null);
         } else {
-            return new UserInfoDto(true,"로그인된 사용자입니다.",
+            return new UserInfoDto(true, "로그인된 사용자입니다.",
                     userDetails.getUser().getId(),
                     userDetails.getUser().getEmail(),
                     userDetails.getUser().getUsername());
