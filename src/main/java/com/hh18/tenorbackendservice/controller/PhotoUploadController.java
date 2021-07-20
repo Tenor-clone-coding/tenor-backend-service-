@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,7 +25,12 @@ public class PhotoUploadController {
     public String write(@RequestParam("file") MultipartFile files, PhotoDto photoDto) {
         try {
             String origFilename = files.getOriginalFilename();
-            String filename = new MD5Generator(origFilename).toString();
+            //파일명을 MD5해쉬로 변환하고
+            String nameToMD5 = new MD5Generator(origFilename).toString();
+            //랜덤키를 생성해서
+            String uuid = UUID.randomUUID().toString();
+            //파일명과 합쳐 중복파일명을 피함
+            String filename = nameToMD5 + "_" +uuid;
             /* static/image에 저장됨 */
 //            String savePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\image"; //윈도우용
             String savePath = System.getProperty("user.dir") + "/image"; //리눅스용
