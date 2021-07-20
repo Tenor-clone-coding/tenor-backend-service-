@@ -59,7 +59,7 @@ public class UserController {
         // authorizedCode: 카카오 서버로부터 받은 인가 코드
         userService.kakaoLogin(code);
 
-        return "redirect:/";
+        return "redirect://localhost:3000";
     }
 
     @GetMapping("user/info")
