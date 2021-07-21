@@ -58,6 +58,8 @@ public class PhotoUploadController {
             photoDto.setFileId(fileId);
             photoService.save(photoDto);
             //파일dto photodto 합치면될듯?
+            fileDto.setId(fileId);
+            //Id는 db가 지정해주기에 지정하면 안되지만 저장할게 아니니 상관없겠지? 물론 이게 좋은방법일리는 없다.
             return fileDto;
         } catch(Exception e) {
             e.printStackTrace();
