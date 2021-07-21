@@ -3,13 +3,13 @@ package com.hh18.tenorbackendservice.controller;
 
 import com.hh18.tenorbackendservice.dto.DefaultBooleanDto;
 import com.hh18.tenorbackendservice.dto.PhotoDto;
+import com.hh18.tenorbackendservice.dto.SearchKeywordsDto;
 import com.hh18.tenorbackendservice.models.File;
-import com.hh18.tenorbackendservice.models.Photo;
-import com.hh18.tenorbackendservice.repository.FileRepository;
 import com.hh18.tenorbackendservice.repository.PhotoRepository;
 import com.hh18.tenorbackendservice.service.FileService;
 import com.hh18.tenorbackendservice.service.PhotoService;
 
+import com.hh18.tenorbackendservice.service.SearchKeywordsService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +24,7 @@ public class PhotoController {
     private final PhotoRepository photoRepository;
     private final FileService fileService;
     private final PhotoService photoService;
+    private final SearchKeywordsService searchKeywordsService;
 
 
     @GetMapping("api/photos")
@@ -54,6 +55,9 @@ public class PhotoController {
             return photoRepository.findAllByOrderByCreatedAtDesc();
         }
         List<PhotoDto> photoDtoList = photoService.searchTitle(words);
+        SearchKeywordsDto searchKeywordsDto = new SearchKeywordsDto();
+        searchKeywordsDto.setKeyword(words);
+        searchKeywordsService.save(searchKeywordsDto);
         return photoDtoList;
     }
 }
