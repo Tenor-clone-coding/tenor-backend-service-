@@ -36,6 +36,17 @@ public class UserController {
         return "signup";
     }
 
+    // 회원 중복 확인
+    @GetMapping("/user/checkid/{id}")
+    @ResponseBody
+    public DefaultBooleanDto checkId(@PathVariable String userEmail) {
+        Boolean response = userService.checkEmail(userEmail);
+        DefaultBooleanDto responseDto = new DefaultBooleanDto();
+        responseDto.setRes(response);
+        return responseDto;
+    }
+
+
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
     public String registerUser(SignupRequestDto requestDto) {
