@@ -2,10 +2,8 @@ package com.hh18.tenorbackendservice.controller;
 
 
 import com.hh18.tenorbackendservice.dto.DefaultBooleanDto;
-import com.hh18.tenorbackendservice.dto.FileDto;
 import com.hh18.tenorbackendservice.dto.PhotoDto;
 import com.hh18.tenorbackendservice.models.Photo;
-import com.hh18.tenorbackendservice.repository.FileRepository;
 import com.hh18.tenorbackendservice.repository.PhotoRepository;
 import com.hh18.tenorbackendservice.service.FileService;
 import com.hh18.tenorbackendservice.service.PhotoService;

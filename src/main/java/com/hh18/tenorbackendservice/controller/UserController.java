@@ -4,24 +4,19 @@ import com.hh18.tenorbackendservice.dto.SignupRequestDto;
 import com.hh18.tenorbackendservice.dto.UserInfoDto;
 import com.hh18.tenorbackendservice.security.UserDetailsImpl;
 import com.hh18.tenorbackendservice.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     // 회원 로그인 페이지
     @GetMapping("/user/login")
@@ -55,11 +50,9 @@ public class UserController {
 
     // 카카오로 로그인 라우팅
     @GetMapping("/user/kakao/callback")
-    public String kakaoLogin(String code) {
-        // authorizedCode: 카카오 서버로부터 받은 인가 코드
+    public String kakaoLogin(@RequestParam(value = "code") String code) {
         userService.kakaoLogin(code);
-
-        return "redirect://localhost:3000";
+        return "redirect:http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com/";
     }
 
     @GetMapping("user/info")

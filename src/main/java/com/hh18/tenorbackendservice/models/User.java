@@ -42,4 +42,8 @@ public class User extends TimeStamped {
 
     @Column(nullable = true)
     private Long kakaoId;
+
+    public void updateKakaoId(Long kakaoId){
+        this.kakaoId = kakaoId;
+    }
 }
