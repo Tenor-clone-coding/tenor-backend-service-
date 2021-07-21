@@ -55,13 +55,24 @@ public class PhotoController {
 
     @GetMapping(value = "api/search")
     public List<? extends Object> search(@RequestParam(value = "words") String words) {
+        //all을 검색했을경우 모든값을 반환합니다.
         if (words.equals("all")){
             return photoRepository.findAllByOrderByCreatedAtDesc();
         }
         List<PhotoDto> photoDtoList = photoService.searchTitle(words);
         SearchKeywordsDto searchKeywordsDto = new SearchKeywordsDto();
         searchKeywordsDto.setKeyword(words);
-        searchKeywordsService.save(searchKeywordsDto);
+        //이미 검색된적이 있는 키워드인지 검사
+        Boolean exist = searchKeywordsService.isKeywordExist(words);
+        if (exist == false) {
+            //검색된적이 없을경우 새로운 row생성
+            searchKeywordsService.save(searchKeywordsDto);
+        } else {
+            //검색된적이 있을경우 새로 row를 생성하지않고 존재하는 row의 마지막 접근시간을 수정
+            searchKeywordsService.updateKeywordSearchHistory(words);
+        }
         return photoDtoList;
     }
+
+    // TODO: 2021-07-21 Long 타입데이터로 마지막 접근시간이 특정 시간(하루,한시간등) 이내일때 +1 값이되는 컬럼 추가해준뒤 해당 값 내림차순정렬으로 트렌드검색어 내려주는 api만들기
 }

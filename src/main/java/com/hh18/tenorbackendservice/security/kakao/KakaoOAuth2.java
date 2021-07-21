@@ -32,8 +32,10 @@ public class KakaoOAuth2 {
         // HttpBody 오브젝트 생성
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "8b35006e1ee289318fb8bf32c056ca85");
-        params.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
+        // params.add("client_id", "8b35006e1ee289318fb8bf32c056ca85");
+        // params.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
+        params.add("client_id", "6151488d1d68378896af71b3912b5405");
+        params.add("redirect_uri", "http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com/user/kakao/callback");
         params.add("code", authorizedCode);
 
         // HttpHeader와 HttpBody를 하나의 오브젝트에 담기
