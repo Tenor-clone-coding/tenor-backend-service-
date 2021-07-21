@@ -9,12 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class PhotoUploadController {
 
@@ -22,7 +24,7 @@ public class PhotoUploadController {
     private final FileService fileService;
 
     @PostMapping("/api/photos")
-    public String write(@RequestParam("file") MultipartFile files, PhotoDto photoDto) {
+    public FileDto write(@RequestParam("file") MultipartFile files, PhotoDto photoDto) {
         try {
             String origFilename = files.getOriginalFilename();
             //파일명을 MD5해쉬로 변환하고
@@ -56,10 +58,10 @@ public class PhotoUploadController {
             photoDto.setFileId(fileId);
             photoService.save(photoDto);
             //파일dto photodto 합치면될듯?
+            return fileDto;
         } catch(Exception e) {
             e.printStackTrace();
+            return null;
         }
-
-        return "redirect:/";
     }
 }
