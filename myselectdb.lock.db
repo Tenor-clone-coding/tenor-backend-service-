@@ -1,0 +1,6 @@
+#FileLock
+#Wed Jul 21 23:52:35 KST 2021
+server=127.0.1.1\:35097
+hostName=sw-pc
+method=file
+id=17ac73626a72d54cd33bb47f0dd759c9db697cedb00

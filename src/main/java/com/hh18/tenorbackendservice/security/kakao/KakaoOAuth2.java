@@ -16,11 +16,15 @@ public class KakaoOAuth2 {
         String accessToken = getAccessToken(authorizedCode);
         // 2. 액세스 토큰 -> 카카오 사용자 정보
         KakaoUserInfo userInfo = getUserInfoByToken(accessToken);
-
         return userInfo;
     }
 
-    private String getAccessToken(String authorizedCode) {
+    public String getToken(String code){
+        String token = getAccessToken(code);
+        return token;
+    }
+
+    public String getAccessToken(String authorizedCode) {
         // HttpHeader 오브젝트 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -28,8 +32,8 @@ public class KakaoOAuth2 {
         // HttpBody 오브젝트 생성
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
-        params.add("client_id", "6151488d1d68378896af71b3912b5405");
-        params.add("redirect_uri", "http://34.64.109.170:8080/user/kakao/callback");
+        params.add("client_id", "8b35006e1ee289318fb8bf32c056ca85");
+        params.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
         params.add("code", authorizedCode);
 
         // HttpHeader와 HttpBody를 하나의 오브젝트에 담기
