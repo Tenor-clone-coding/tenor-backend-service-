@@ -57,7 +57,12 @@ public class PhotoController {
         List<PhotoDto> photoDtoList = photoService.searchTitle(words);
         SearchKeywordsDto searchKeywordsDto = new SearchKeywordsDto();
         searchKeywordsDto.setKeyword(words);
-        searchKeywordsService.save(searchKeywordsDto);
+        Boolean exist = searchKeywordsService.isKeywordExist(words);
+        if (exist == false) {
+            searchKeywordsService.save(searchKeywordsDto);
+        } else {
+            searchKeywordsService.updateKeywordSearchHistory(words);
+        }
         return photoDtoList;
     }
 }
