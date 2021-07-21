@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class File {
+public class File extends TimeStamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,12 +24,16 @@ public class File {
     @Column(nullable = false)
     private String fPath;
 
+    @Column(nullable = false)
+    private String title;
+
     @Builder
-    public File(Long id,String originFname,String fname,String fPath){
+    public File(Long id,String originFname,String fname,String fPath,String title){
         this.id = id;
         this.originFname = originFname;
         this.fname = fname;
         this.fPath = fPath;
+        this.title = title;
     }
 
 }

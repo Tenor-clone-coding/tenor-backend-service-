@@ -1,5 +1,6 @@
 package com.hh18.tenorbackendservice.controller;
 
+import com.hh18.tenorbackendservice.dto.DefaultBooleanDto;
 import com.hh18.tenorbackendservice.dto.SignupRequestDto;
 import com.hh18.tenorbackendservice.dto.UserInfoDto;
 import com.hh18.tenorbackendservice.security.UserDetailsImpl;
@@ -68,11 +69,11 @@ public class UserController {
 
     @GetMapping("user/info")
     @ResponseBody
-    public UserInfoDto getUserInfo(@AuthenticationPrincipal UserDetailsImpl userDetails){
-        if (userDetails == null){
-            return new UserInfoDto(false,"로그인상태가 아닙니다.",null,null,null);
+    public UserInfoDto getUserInfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        if (userDetails == null) {
+            return new UserInfoDto(false, "로그인상태가 아닙니다.", null, null, null);
         } else {
-            return new UserInfoDto(true,"로그인된 사용자입니다.",
+            return new UserInfoDto(true, "로그인된 사용자입니다.",
                     userDetails.getUser().getId(),
                     userDetails.getUser().getEmail(),
                     userDetails.getUser().getUsername());

@@ -3,7 +3,9 @@ package com.hh18.tenorbackendservice.controller;
 
 import com.hh18.tenorbackendservice.dto.DefaultBooleanDto;
 import com.hh18.tenorbackendservice.dto.PhotoDto;
+import com.hh18.tenorbackendservice.models.File;
 import com.hh18.tenorbackendservice.models.Photo;
+import com.hh18.tenorbackendservice.repository.FileRepository;
 import com.hh18.tenorbackendservice.repository.PhotoRepository;
 import com.hh18.tenorbackendservice.service.FileService;
 import com.hh18.tenorbackendservice.service.PhotoService;
@@ -25,8 +27,8 @@ public class PhotoController {
 
 
     @GetMapping("api/photos")
-    public List<Photo> readPhotoList(PhotoDto requestDto) {
-        return photoRepository.findAllByOrderByCreatedAtDesc();
+    public List<File> readPhotoList() {
+        return fileService.readAll();
     }
 
     @GetMapping("api/photos/{id}")

@@ -50,10 +50,12 @@ public class PhotoUploadController {
             fileDto.setOriginFname(origFilename);
             fileDto.setFname(filename);
             fileDto.setFPath(filePath);
+            fileDto.setTitle(photoDto.getTitle());
 
             Long fileId = fileService.saveFile(fileDto);
             photoDto.setFileId(fileId);
             photoService.save(photoDto);
+            //파일dto photodto 합치면될듯?
         } catch(Exception e) {
             e.printStackTrace();
         }
