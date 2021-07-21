@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +26,11 @@ public class FileService {
                 () -> new IllegalArgumentException("존재하지않는파일")
         );
         return file.getFname();
+    }
+
+    @Transactional
+    public List<File> readAll(){
+        return fileRepository.findAllByOrderByCreatedAtDesc();
     }
 
 }
