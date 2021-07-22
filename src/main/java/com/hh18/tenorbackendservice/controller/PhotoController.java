@@ -37,10 +37,6 @@ public class PhotoController {
         return fileService.searchById(id);
     }
 
-    //get all img srcs
-    @GetMapping("api/photos/all")
-    public List<String> searchAllById() { return fileService.searchAllById();}
-
     @DeleteMapping("api/photos/{id}")
     public DefaultBooleanDto delete(@PathVariable Long id) {
         DefaultBooleanDto response = new DefaultBooleanDto();
@@ -53,6 +49,10 @@ public class PhotoController {
         return response;
     }
 
+    /* 
+    exist로 존재하는 경우에만 isHot() 메소드로 검색어가 24시간 내로 검색된 적이 있는지 bool 값으로 반환 
+    만약 24시간 내로 검색된 적이 있다면 likeCount를 1 올리고 없다면 0으로 리셋을 가정해서 1로 바꿔줍니다. 
+    */
     @GetMapping(value = "api/search")
     public List<? extends Object> search(@RequestParam(value = "words") String words) {
         //all을 검색했을경우 모든값을 반환합니다.
@@ -69,7 +69,11 @@ public class PhotoController {
             searchKeywordsService.save(searchKeywordsDto);
         } else {
             //검색된적이 있을경우 새로 row를 생성하지않고 존재하는 row의 마지막 접근시간을 수정
-            searchKeywordsService.updateKeywordSearchHistory(words);
+            if (searchKeywordsService.isHot(words)) {
+                searchKeywordsService.updateKeywordSearchHistory(words);
+            } else {
+                searchKeywordsService.resetTrendKeywordSearchHistory(words);
+            }
         }
         return photoDtoList;
     }

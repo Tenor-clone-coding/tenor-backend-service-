@@ -13,4 +13,6 @@ import java.time.LocalDateTime;
 public class SearchKeywordsDto {
     private String keyword;
     private LocalDateTime lastAccessed;
+    // 여기는 그냥 likeCount를 추가
+    private Long likeCount;
 }
