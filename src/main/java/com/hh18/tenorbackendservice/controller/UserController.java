@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 @Controller
+@CrossOrigin(origins = "http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -62,8 +65,11 @@ public class UserController {
 
     // 카카오로 로그인 라우팅
     @GetMapping("/user/kakao/callback")
-    public String kakaoLogin(@RequestParam(value = "code") String code) {
+    public String kakaoLogin(@RequestParam(value = "code") String code, HttpServletResponse httpServletResponse) {
         userService.kakaoLogin(code);
+        httpServletResponse.addHeader("Access-Control-Allow-Origin","http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com");
+        httpServletResponse.addHeader("Access-Control-Allow-Headers","*");
+        httpServletResponse.addHeader("Access-Control-Allow-Methods","*");
         return "redirect:http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com/";
     }
 
