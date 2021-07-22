@@ -55,6 +55,8 @@ public class FileService {
                 .id(file.getId())
                 .title(file.getTitle())
                 .fname(file.getFname())
+                .originFname(file.getOriginFname())
+                .fPath(file.getFPath())
                 .build();
     }
 }
