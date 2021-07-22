@@ -67,9 +67,6 @@ public class UserController {
     @GetMapping("/user/kakao/callback")
     public String kakaoLogin(@RequestParam(value = "code") String code, HttpServletResponse httpServletResponse) {
         userService.kakaoLogin(code);
-        httpServletResponse.addHeader("Access-Control-Allow-Origin","http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com");
-        httpServletResponse.addHeader("Access-Control-Allow-Headers","*");
-        httpServletResponse.addHeader("Access-Control-Allow-Methods","*");
         return "redirect:http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com/";
     }
 
