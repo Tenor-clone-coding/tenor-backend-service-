@@ -60,7 +60,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void kakaoLogin(String authorizedCode) {
+    public String kakaoLogin(String authorizedCode) {
         // 카카오 OAuth2 를 통해 카카오 사용자 정보 조회
         KakaoUserInfo userInfo = kakaoOAuth2.getUserInfo(authorizedCode);
         Long kakaoId = userInfo.getId();
@@ -90,5 +90,6 @@ public class UserService {
         Authentication kakaoUsernamePassword = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        return nickname;
     }
 }
