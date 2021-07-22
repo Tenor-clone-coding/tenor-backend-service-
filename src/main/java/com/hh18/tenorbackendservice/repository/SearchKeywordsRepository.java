@@ -1,7 +1,6 @@
 package com.hh18.tenorbackendservice.repository;
 
 import com.hh18.tenorbackendservice.models.SearchKeywords;
-import javassist.compiler.ast.Keyword;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

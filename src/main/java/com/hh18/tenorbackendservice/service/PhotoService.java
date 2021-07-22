@@ -28,20 +28,7 @@ public class PhotoService {
         photoRepository.delete(photo);
     }
 
-    @Transactional
-    public List<PhotoDto> searchTitle(String words){
-        List<Photo> photos = photoRepository.findByTitleContainingOrderByCreatedAtDesc(words);
-        List<PhotoDto> photoDtoList = new ArrayList<>();
 
-        if(photos.isEmpty()){
-            return photoDtoList;
-        }
-
-        for(Photo photo : photos){
-            photoDtoList.add(this.entityDto(photo));
-        }
-        return photoDtoList;
-    }
 
     private PhotoDto entityDto(Photo photo){
         return PhotoDto.builder()

@@ -2,6 +2,7 @@ package com.hh18.tenorbackendservice.controller;
 
 
 import com.hh18.tenorbackendservice.dto.DefaultBooleanDto;
+import com.hh18.tenorbackendservice.dto.FileDto;
 import com.hh18.tenorbackendservice.dto.PhotoDto;
 import com.hh18.tenorbackendservice.dto.SearchKeywordsDto;
 import com.hh18.tenorbackendservice.models.File;
@@ -19,6 +20,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin(origins = "http://tenor-test1.s3-website.ap-northeast-2.amazonaws.com")
 @RequiredArgsConstructor
 public class PhotoController {
     private final PhotoRepository photoRepository;
@@ -55,7 +57,7 @@ public class PhotoController {
         if (words.equals("all")){
             return photoRepository.findAllByOrderByCreatedAtDesc();
         }
-        List<PhotoDto> photoDtoList = photoService.searchTitle(words);
+        List<FileDto> fileDtoList = fileService.searchTitle(words);
         SearchKeywordsDto searchKeywordsDto = new SearchKeywordsDto();
         searchKeywordsDto.setKeyword(words);
         //이미 검색된적이 있는 키워드인지 검사
@@ -67,7 +69,7 @@ public class PhotoController {
             //검색된적이 있을경우 새로 row를 생성하지않고 존재하는 row의 마지막 접근시간을 수정
             searchKeywordsService.updateKeywordSearchHistory(words);
         }
-        return photoDtoList;
+        return fileDtoList;
     }
 
     // TODO: 2021-07-21 Long 타입데이터로 마지막 접근시간이 특정 시간(하루,한시간등) 이내일때 +1 값이되는 컬럼 추가해준뒤 해당 값 내림차순정렬으로 트렌드검색어 내려주는 api만들기
